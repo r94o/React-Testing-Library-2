@@ -1,5 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import SummaryForm from '../SummaryForm'
+import userEvent from '@testing-library/user-event';
 
 test("Checkbox is unchecked by default", () => {
   render(<SummaryForm />)
@@ -12,14 +13,14 @@ test("button is enabled when checkbox clicked", () => {
   render(<SummaryForm />)
   const checkboxElement = screen.getByRole("checkbox", { name: "I agree to Terms and Conditions" });
   const buttonElement = screen.getByRole("button", { name: "Confirm order" });
-  fireEvent.click(checkboxElement);
+  userEvent.click(checkboxElement);
   expect(buttonElement).toBeEnabled();
 })
 test("button is disabled when checkbox is clicked again", () => {
   render(<SummaryForm />)
   const checkboxElement = screen.getByRole("checkbox", { name: "I agree to Terms and Conditions" });
   const buttonElement = screen.getByRole("button", { name: "Confirm order" });
-  fireEvent.click(checkboxElement);
-  fireEvent.click(checkboxElement);
+  userEvent.click(checkboxElement);
+  userEvent.click(checkboxElement);
   expect(buttonElement).toBeDisabled();
 })
